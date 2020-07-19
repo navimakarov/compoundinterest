@@ -7,19 +7,19 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.makarov.compoundinterest.ui.home.HomeFragment"
+        android:name="com.makarov.compoundinterest.ui.calculation.CalculationFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_calculation" />
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="com.makarov.compoundinterest.ui.dashboard.DashboardFragment"
+        android:name="com.makarov.compoundinterest.ui.chart.ChartFragment"
         android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_chart" />
 
     <fragment
         android:id="@+id/navigation_notifications"
-        android:name="com.makarov.compoundinterest.ui.notifications.NotificationsFragment"
+        android:name="com.makarov.compoundinterest.ui.info.InfoFragment"
         android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        tools:layout="@layout/fragment_info" />
 </navigation>
