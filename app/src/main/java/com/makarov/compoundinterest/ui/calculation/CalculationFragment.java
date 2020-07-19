@@ -17,6 +17,9 @@ import androidx.lifecycle.ViewModelProviders;
 import com.makarov.compoundinterest.R;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.text.NumberFormat;
+import java.util.Locale;
 
 public class CalculationFragment extends Fragment {
 
@@ -53,18 +56,23 @@ public class CalculationFragment extends Fragment {
                 long startingBalance = Long. parseLong(startingBalanceEdit.getText().toString());
                 long monthlyContribution= Long. parseLong(monthlyContributionEdit.getText().toString());
                 double interestRate = Double.parseDouble(interestRateEdit.getText().toString());
+                interestRate = interestRate * 0.01;
                 long duration = Long. parseLong(durationEdit.getText().toString());
 
-                double capital = startingBalance;
+                BigDecimal capital = new BigDecimal(String.valueOf(startingBalance));
 
                 for(int i = 0; i < duration; i++){
-                    capital += capital * (interestRate * 0.01);
-                    capital += monthlyContribution * 12;
+                    capital = capital.add(capital.multiply(new BigDecimal(String.valueOf(interestRate))));
+                    capital = capital.add(new BigDecimal(String.valueOf(monthlyContribution * 12)));
                 }
-                Toast.makeText(getActivity(), String.valueOf(capital), Toast.LENGTH_SHORT).show();
                 // round to hundredths
-                capital = (double) (int)Math.round(capital * 100) / 100;
-                String balanceText = String.valueOf(capital);
+                capital = capital.multiply(new BigDecimal(100));
+                BigInteger capital_integer = capital.toBigInteger();
+                BigDecimal result = new BigDecimal(capital_integer);
+                result = result.divide(new BigDecimal(100));
+
+                
+                String balanceText = NumberFormat.getInstance(Locale.US).format(result);
                 balanceText += " $";
 
                 balance.setText(balanceText);
