@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.makarov.compoundinterest.MainActivity;
 import com.makarov.compoundinterest.R;
+import com.makarov.compoundinterest.ui.DataHolderClass;
 import com.makarov.compoundinterest.ui.chart.ChartFragment;
 
 import java.math.BigDecimal;
@@ -77,7 +78,7 @@ public class CalculationFragment extends Fragment {
                 balanceText += " $";
 
                 balance.setText(balanceText);
-                ((MainActivity)getActivity()).draw_charts();
+                DataHolderClass.getInstance().setDistributor_id("your data");
 
 
             }
