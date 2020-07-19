@@ -15,7 +15,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.1">
+        app:layout_constraintVertical_bias="0.05">
 
         <LinearLayout
             android:layout_width="373dp"
@@ -27,15 +27,15 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.1">
+            app:layout_constraintVertical_bias="0.05">
 
             <TextView
                 android:id="@+id/startingBalance"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Starting Balance"
-                android:layout_marginTop="16dp"
                 android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                android:text="Starting Balance"
                 android:textSize="18sp" />
 
             <EditText
@@ -52,20 +52,20 @@
                 android:id="@+id/monthlyContribution"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Monthly Contribution"
-                android:layout_marginTop="16dp"
                 android:layout_marginLeft="16dp"
-                android:textSize="18sp"/>
+                android:layout_marginTop="16dp"
+                android:text="Monthly Contribution"
+                android:textSize="18sp" />
 
             <EditText
                 android:id="@+id/monthlyContributionEdit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
                 android:ems="10"
                 android:inputType="numberSigned"
                 android:textSize="24sp"
-                android:textStyle="bold"
-                android:layout_marginTop="16dp"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/interestRate"
@@ -80,37 +80,37 @@
                 android:id="@+id/interestRateEdit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
                 android:ems="10"
                 android:inputType="numberSigned"
                 android:textSize="24sp"
-                android:textStyle="bold"
-                android:layout_marginTop="16dp"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/duration"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Duration (in years)"
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="16dp"
-                android:textSize="18sp"/>
+                android:text="Duration (in years)"
+                android:textSize="18sp" />
 
             <EditText
                 android:id="@+id/durationEdit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
                 android:ems="10"
                 android:inputType="numberSigned"
                 android:textSize="24sp"
-                android:textStyle="bold"
-                android:layout_marginTop="16dp"/>
+                android:textStyle="bold" />
         </LinearLayout>
 
         <Button
             android:id="@+id/button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="45dp"
+            android:layout_marginTop="40dp"
             android:background="@drawable/rounded_button"
             android:text="Calculate"
             android:textColor="@android:color/white"
