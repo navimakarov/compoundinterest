@@ -8,7 +8,7 @@
 
     <LinearLayout
         android:layout_width="373dp"
-        android:layout_height="550dp"
+        android:layout_height="600dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -43,10 +43,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:ems="10"
                 android:inputType="numberSigned"
                 android:textSize="24sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:digits="0123456789"/>
 
             <TextView
                 android:id="@+id/monthlyContribution"
@@ -62,10 +62,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:ems="10"
                 android:inputType="numberSigned"
                 android:textSize="24sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:digits="0123456789"/>
 
             <TextView
                 android:id="@+id/interestRate"
@@ -81,10 +81,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:ems="10"
-                android:inputType="numberSigned"
+                android:inputType="numberDecimal"
                 android:textSize="24sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:digits="0123456789."/>
 
             <TextView
                 android:id="@+id/duration"
@@ -100,21 +100,32 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:ems="10"
                 android:inputType="numberSigned"
                 android:textSize="24sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:digits="0123456789"/>
         </LinearLayout>
 
-        <Button
-            android:id="@+id/button"
+        <TextView
+            android:id="@+id/balance"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            android:text="0.00 $"
+            android:textColor="#4CAF50"
+            android:textSize="25sp" />
+
+        <Button
+            android:id="@+id/calculate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
             android:background="@drawable/rounded_button"
             android:text="Calculate"
             android:textColor="@android:color/white"
             android:textSize="24sp" />
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
