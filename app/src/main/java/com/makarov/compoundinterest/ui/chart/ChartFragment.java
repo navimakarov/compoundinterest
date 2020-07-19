@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,18 +19,23 @@ public class ChartFragment extends Fragment {
 
     private ChartViewModel dashboardViewModel;
 
+
+    View root;
+    TextView textView;
+    public String data = "Fuck";
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         dashboardViewModel =
                 ViewModelProviders.of(this).get(ChartViewModel.class);
         View root = inflater.inflate(R.layout.fragment_chart, container, false);
-        final TextView textView = root.findViewById(R.id.text_dashboard);
-        dashboardViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
+        textView = root.findViewById(R.id.text_dashboard);
         return root;
     }
+
+    public void show_charts(){
+        Toast.makeText(getActivity(),"Text!",Toast.LENGTH_LONG).show();
+    }
+
+
 }

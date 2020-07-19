@@ -7,14 +7,15 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.makarov.compoundinterest.MainActivity;
 import com.makarov.compoundinterest.R;
+import com.makarov.compoundinterest.ui.chart.ChartFragment;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -54,7 +55,7 @@ public class CalculationFragment extends Fragment {
             public void onClick(View v)
             {
                 long startingBalance = Long. parseLong(startingBalanceEdit.getText().toString());
-                long monthlyContribution= Long. parseLong(monthlyContributionEdit.getText().toString());
+                long monthlyContribution = Long. parseLong(monthlyContributionEdit.getText().toString());
                 double interestRate = Double.parseDouble(interestRateEdit.getText().toString());
                 interestRate = interestRate * 0.01;
                 long duration = Long. parseLong(durationEdit.getText().toString());
@@ -71,11 +72,13 @@ public class CalculationFragment extends Fragment {
                 BigDecimal result = new BigDecimal(capital_integer);
                 result = result.divide(new BigDecimal(100));
 
-                
+
                 String balanceText = NumberFormat.getInstance(Locale.US).format(result);
                 balanceText += " $";
 
                 balance.setText(balanceText);
+                ((MainActivity)getActivity()).draw_charts();
+
 
             }
         });

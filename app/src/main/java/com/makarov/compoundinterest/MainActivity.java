@@ -1,6 +1,7 @@
 package com.makarov.compoundinterest;
 
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -9,6 +10,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,6 +30,10 @@ public class MainActivity extends AppCompatActivity {
 
         getSupportActionBar().hide();
 
+    }
+
+    public void draw_charts(){
+        Toast.makeText(getApplicationContext(),"Text!",Toast.LENGTH_LONG).show();
     }
 
 
