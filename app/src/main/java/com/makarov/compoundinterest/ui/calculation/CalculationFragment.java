@@ -55,30 +55,37 @@ public class CalculationFragment extends Fragment {
             @Override
             public void onClick(View v)
             {
-                long startingBalance = Long. parseLong(startingBalanceEdit.getText().toString());
-                long monthlyContribution = Long. parseLong(monthlyContributionEdit.getText().toString());
-                double interestRate = Double.parseDouble(interestRateEdit.getText().toString());
-                interestRate = interestRate * 0.01;
-                long duration = Long. parseLong(durationEdit.getText().toString());
+                try {
+                    long startingBalance = Long.parseLong(startingBalanceEdit.getText().toString());
+                    long monthlyContribution = Long.parseLong(monthlyContributionEdit.getText().toString());
+                    double interestRate = Double.parseDouble(interestRateEdit.getText().toString());
+                    interestRate = interestRate * 0.01;
+                    long duration = Long.parseLong(durationEdit.getText().toString());
 
-                BigDecimal capital = new BigDecimal(String.valueOf(startingBalance));
+                    BigDecimal capital = new BigDecimal(String.valueOf(startingBalance));
 
-                for(int i = 0; i < duration; i++){
-                    capital = capital.add(capital.multiply(new BigDecimal(String.valueOf(interestRate))));
-                    capital = capital.add(new BigDecimal(String.valueOf(monthlyContribution * 12)));
+                    for (int i = 0; i < duration; i++) {
+                        capital = capital.add(capital.multiply(new BigDecimal(String.valueOf(interestRate))));
+                        capital = capital.add(new BigDecimal(String.valueOf(monthlyContribution * 12)));
+                    }
+                    // round to hundredths
+                    capital = capital.multiply(new BigDecimal(100));
+                    BigInteger capital_integer = capital.toBigInteger();
+                    BigDecimal result = new BigDecimal(capital_integer);
+                    result = result.divide(new BigDecimal(100));
+
+
+                    String balanceText = NumberFormat.getInstance(Locale.US).format(result);
+                    balanceText += " $";
+
+                    balance.setText(balanceText);
+                    String data = String.valueOf(startingBalance) + "," + String.valueOf(monthlyContribution)
+                            + "," + String.valueOf(interestRate) + "," + String.valueOf(duration);
+                    DataHolderClass.getInstance().setDistributor_id(data);
                 }
-                // round to hundredths
-                capital = capital.multiply(new BigDecimal(100));
-                BigInteger capital_integer = capital.toBigInteger();
-                BigDecimal result = new BigDecimal(capital_integer);
-                result = result.divide(new BigDecimal(100));
+                catch (Exception e){
 
-
-                String balanceText = NumberFormat.getInstance(Locale.US).format(result);
-                balanceText += " $";
-
-                balance.setText(balanceText);
-                DataHolderClass.getInstance().setDistributor_id("your data");
+                }
 
 
             }
