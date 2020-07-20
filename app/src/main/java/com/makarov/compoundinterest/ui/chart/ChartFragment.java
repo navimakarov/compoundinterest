@@ -50,12 +50,22 @@ public class ChartFragment extends Fragment {
 
                 balances.clear();
                 BigDecimal capital = new BigDecimal(String.valueOf(startingBalance));
-                BigInteger chartValue;
+                String divider = "1";
                 for(int i = 0; i < duration; i++) {
                     capital = capital.add(capital.multiply(new BigDecimal(String.valueOf(interestRate))));
                     capital = capital.add(new BigDecimal(String.valueOf(monthlyContribution * 12)));
+                    capital = capital.divide(new BigDecimal(divider));
 
-                    balances.add(new BarEntry(i + 1, capital.longValue()));
+                    long chartValue = capital.longValue();
+                    if(chartValue < 0){
+                        balances.clear();
+                        divider += "000";
+                        capital = new BigDecimal(String.valueOf(startingBalance));
+                        i = 0;
+                    }
+                    else {
+                        balances.add(new BarEntry(i + 1, chartValue));
+                    }
 
                 }
             }
@@ -63,7 +73,7 @@ public class ChartFragment extends Fragment {
         }
 
         catch (Exception e){
-            
+
 
         }
 
