@@ -6,9 +6,10 @@
     android:layout_height="match_parent"
     tools:context=".ui.chart.ChartFragment">
 
+
     <ScrollView
         android:id="@+id/scrollView"
-        android:layout_width="420dp"
+        android:layout_width="373dp"
         android:layout_height="673dp"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -22,16 +23,24 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Analytics"
+                android:textSize="40sp"
+                android:textStyle="italic"
+                android:layout_marginBottom="20dp"
+                />
+
+
             <com.github.mikephil.charting.charts.BarChart
                 android:id="@+id/barChart"
                 android:layout_width="match_parent"
-                android:layout_height="500dp"></com.github.mikephil.charting.charts.BarChart>
+                android:layout_height="500dp"
+                android:background="@drawable/rounded_view">
 
-            <com.github.mikephil.charting.charts.LineChart
-                android:id = "@+id/lineChart"
-                android:layout_width = "match_parent"
-                android:layout_height = "500dp"
-                android:layout_marginTop="20dp"/>
+            </com.github.mikephil.charting.charts.BarChart>
 
             <com.github.mikephil.charting.charts.PieChart
                 android:id="@+id/pieChart"
@@ -39,7 +48,76 @@
                 android:layout_height="400dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="70dp"
-                />
+                android:background="@drawable/rounded_view" />
+            
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="70dp"
+                android:background="@drawable/rounded_view">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:text="Investment: "
+                    android:textSize="36sp"
+                    android:layout_marginTop="16dp"
+                    android:textColor="#000000"
+                    />
+                <TextView
+                    android:id="@+id/investments"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:textSize="30sp"
+                    android:layout_marginTop="16dp"
+                    />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:text="Profit: "
+                    android:textSize="36sp"
+                    android:layout_marginTop="16dp"
+                    android:textColor="#000000"
+                    />
+                <TextView
+                    android:id="@+id/profit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:textSize="30sp"
+                    android:layout_marginTop="16dp"/>
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:background="#000000" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:text="Total: "
+                    android:textSize="36sp"
+                    android:layout_marginTop="16dp"
+                    android:textColor="#000000"
+                    />
+                <TextView
+                    android:id="@+id/total"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:textSize="30sp"
+                    android:layout_marginTop="16dp"
+                    android:textColor="#4CAF50"
+                    />
+
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 

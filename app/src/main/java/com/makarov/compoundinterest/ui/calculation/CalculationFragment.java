@@ -49,6 +49,22 @@ public class CalculationFragment extends Fragment {
 
         balance = (TextView) root.findViewById(R.id.balance);
 
+        try{
+            String[] data = DataHolderClass.getInstance().getDistributor_id().split(",");
+            if (data.length >= 4) {
+                startingBalanceEdit.setText(data[0]);
+                monthlyContributionEdit.setText(data[1]);
+                double interest = Double.parseDouble(data[2]) * 100;
+                interestRateEdit.setText(String.valueOf(interest));
+                durationEdit.setText(data[3]);
+                balance.setText(NumberFormat.getInstance(Locale.US).format(new BigDecimal(data[4])) + " $");
+            }
+        }
+
+        catch(Exception e){
+
+        }
+
         Button calculate = (Button) root.findViewById(R.id.calculate);
         calculate.setOnClickListener(new View.OnClickListener()
         {
@@ -75,8 +91,7 @@ public class CalculationFragment extends Fragment {
                     result = result.divide(new BigDecimal(100));
 
 
-                    String balanceText = NumberFormat.getInstance(Locale.US).format(result);
-                    balanceText += " $";
+                    String balanceText = NumberFormat.getInstance(Locale.US).format(result) + " $";
 
                     balance.setText(balanceText);
                     String data = String.valueOf(startingBalance) + "," + String.valueOf(monthlyContribution)

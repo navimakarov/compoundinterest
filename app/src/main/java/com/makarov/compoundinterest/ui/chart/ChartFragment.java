@@ -14,15 +14,11 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.github.mikephil.charting.charts.BarChart;
-import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.data.LineData;
-import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
@@ -31,9 +27,14 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 import com.makarov.compoundinterest.R;
 import com.makarov.compoundinterest.ui.DataHolderClass;
 
+import org.w3c.dom.Text;
+
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.math.RoundingMode;
+import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class ChartFragment extends Fragment  {
 
@@ -51,16 +52,12 @@ public class ChartFragment extends Fragment  {
         ScrollView scrollView = (ScrollView) root.findViewById(R.id.scrollView);
         TextView noData = (TextView) root.findViewById(R.id.nodata);
 
-        LineChart lineChart;
-        LineData lineData;
-        LineDataSet lineDataSet;
-        ArrayList lineEntries;
-
-        lineChart = root.findViewById(R.id.lineChart);
-        lineEntries = new ArrayList<>();
-
         PieChart pieChart = root.findViewById(R.id.pieChart);
         ArrayList<PieEntry> profit = new ArrayList<>();
+
+        TextView investmentsTextView = (TextView) root.findViewById(R.id.investments);
+        TextView profitTextView = (TextView) root.findViewById(R.id.profit);
+        TextView totalTextView = (TextView) root.findViewById(R.id.total);
 
 
         try {
@@ -72,6 +69,14 @@ public class ChartFragment extends Fragment  {
                 long monthlyContribution = Long.parseLong(data[1]);
                 double interestRate = Double.parseDouble(data[2]);
                 long duration = Long.parseLong(data[3]);
+
+                BigDecimal investments = new BigDecimal(startingBalance);
+                investments = investments.add(new BigDecimal(monthlyContribution)
+                        .multiply(new BigDecimal(12).multiply(new BigDecimal(duration))));
+
+                String investmentsText = NumberFormat.getInstance(Locale.US).format(investments) + " $";
+                investmentsTextView.setText(investmentsText);
+
 
                 balances.clear();
                 BigDecimal capital = new BigDecimal(String.valueOf(startingBalance));
@@ -97,34 +102,23 @@ public class ChartFragment extends Fragment  {
                 for(int i = 0; i < duration; i++){
                     chartValue = bigDecimal_capital.get(i).longValue();
                     balances.add(new BarEntry(i+1, chartValue));
-                    lineEntries.add(new Entry(i+1, chartValue));
                 }
 
 
-                lineDataSet = new LineDataSet(lineEntries, "");
-                lineData = new LineData(lineDataSet);
-                lineChart.setData(lineData);
-                lineChart.getDescription().setText("");
-                lineChart.getAxisLeft().setDrawLabels(false);
-                lineChart.getAxisRight().setDrawLabels(false);
-                lineChart.getXAxis().setDrawLabels(false);
-                lineChart.animateY(1000);
-                lineDataSet.setDrawValues(false);
-                lineDataSet.setFillAlpha(100);
-                lineDataSet.setDrawFilled(true);
-                lineDataSet.setFillColor(Color.RED);
-
-                lineChart.getLegend().setEnabled(false);
-                lineChart.getAxisLeft().setDrawGridLines(false);
-                lineChart.getXAxis().setDrawGridLines(false);
-                lineChart.getAxisRight().setDrawGridLines(false);
-
                 BigDecimal final_balance = new BigDecimal(data[4]);
+                totalTextView.setText(NumberFormat.getInstance(Locale.US).format(final_balance) + " $");
                 BigDecimal final_profit;
 
-                final_profit = final_balance.subtract(new BigDecimal(startingBalance));
-                final_profit = final_profit.subtract(new BigDecimal(monthlyContribution)
-                        .multiply(new BigDecimal(12).multiply(new BigDecimal(duration))));
+                final_profit = final_balance.subtract(investments);
+
+                BigDecimal profitBigDecimal = final_profit.multiply(new BigDecimal(100));
+                BigInteger profitBigInteger = profitBigDecimal.toBigInteger();
+                profitBigDecimal = new BigDecimal(profitBigInteger);
+                profitBigDecimal = profitBigDecimal.divide(new BigDecimal(100));
+
+                String profitText = NumberFormat.getInstance(Locale.US).format(profitBigDecimal) + " $";
+                profitTextView.setText(profitText);
+
                 final_profit = final_profit.divide(final_balance, 4, RoundingMode.CEILING);
                 final_profit = final_profit.multiply(new BigDecimal(100));
 
@@ -169,7 +163,7 @@ public class ChartFragment extends Fragment  {
 
         finally {
             BarDataSet barDataSet = new BarDataSet(balances, "Balance");
-            barDataSet.setColors(Color.rgb(144,238,144));
+            barDataSet.setColors(Color.rgb(240,128,128));
             barDataSet.setDrawValues(false);
 
             BarData barData = new BarData(barDataSet);
@@ -185,16 +179,12 @@ public class ChartFragment extends Fragment  {
             barChart.getAxisLeft().setDrawGridLines(false);
             barChart.getXAxis().setDrawGridLines(false);
             barChart.getAxisRight().setDrawGridLines(false);
-            
-
 
             barChart.getLegend().setEnabled(false);
-        }
 
+        }
 
         return root;
     }
-
-
 
 }
