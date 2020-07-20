@@ -14,18 +14,28 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.formatter.PercentFormatter;
+import com.github.mikephil.charting.utils.ColorTemplate;
 import com.makarov.compoundinterest.R;
 import com.makarov.compoundinterest.ui.DataHolderClass;
 
-import org.w3c.dom.Text;
-
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 
-public class ChartFragment extends Fragment {
+public class ChartFragment extends Fragment  {
 
     private ChartViewModel dashboardViewModel;
 
@@ -40,6 +50,18 @@ public class ChartFragment extends Fragment {
         ArrayList<BarEntry> balances = new ArrayList<>();
         ScrollView scrollView = (ScrollView) root.findViewById(R.id.scrollView);
         TextView noData = (TextView) root.findViewById(R.id.nodata);
+
+        LineChart lineChart;
+        LineData lineData;
+        LineDataSet lineDataSet;
+        ArrayList lineEntries;
+
+        lineChart = root.findViewById(R.id.lineChart);
+        lineEntries = new ArrayList<>();
+
+        PieChart pieChart = root.findViewById(R.id.pieChart);
+        ArrayList<PieEntry> profit = new ArrayList<>();
+
 
         try {
             String[] data = DataHolderClass.getInstance().getDistributor_id().split(",");
@@ -75,7 +97,64 @@ public class ChartFragment extends Fragment {
                 for(int i = 0; i < duration; i++){
                     chartValue = bigDecimal_capital.get(i).longValue();
                     balances.add(new BarEntry(i+1, chartValue));
+                    lineEntries.add(new Entry(i+1, chartValue));
                 }
+
+
+                lineDataSet = new LineDataSet(lineEntries, "");
+                lineData = new LineData(lineDataSet);
+                lineChart.setData(lineData);
+                lineChart.getDescription().setText("");
+                lineChart.getAxisLeft().setDrawLabels(false);
+                lineChart.getAxisRight().setDrawLabels(false);
+                lineChart.getXAxis().setDrawLabels(false);
+                lineChart.animateY(1000);
+                lineDataSet.setDrawValues(false);
+                lineDataSet.setFillAlpha(100);
+                lineDataSet.setDrawFilled(true);
+                lineDataSet.setFillColor(Color.RED);
+
+                lineChart.getLegend().setEnabled(false);
+
+                BigDecimal final_balance = new BigDecimal(data[4]);
+                BigDecimal final_profit;
+
+                final_profit = final_balance.subtract(new BigDecimal(startingBalance));
+                final_profit = final_profit.subtract(new BigDecimal(monthlyContribution)
+                        .multiply(new BigDecimal(12).multiply(new BigDecimal(duration))));
+                final_profit = final_profit.divide(final_balance, 4, RoundingMode.CEILING);
+                final_profit = final_profit.multiply(new BigDecimal(100));
+
+                float profit_percents = final_profit.floatValue();
+                if(profit_percents < 1)
+                    profit_percents = 1;
+
+
+                profit.add(new PieEntry(profit_percents, "Profit"));
+                profit.add(new PieEntry(100 - profit_percents, "Investments"));
+                PieDataSet pieDataSet = new PieDataSet(profit, "");
+                pieDataSet.setColors(ColorTemplate.MATERIAL_COLORS);
+                pieDataSet.setValueTextSize(25f);
+
+
+                PieData pieData = new PieData(pieDataSet);
+                pieData.setValueFormatter(new PercentFormatter(pieChart));
+
+
+                pieChart.setData(pieData);
+                pieChart.getDescription().setEnabled(false);
+                pieChart.setCenterText("Profit");
+                pieChart.setCenterTextSize(35f);
+                pieChart.setCenterTextColor(Color.rgb(0, 128,255));
+                pieChart.setUsePercentValues(true);
+                pieChart.animate();
+                pieChart.animateY(1000);
+                pieChart.setDrawEntryLabels(false);
+                Legend legend = pieChart.getLegend();
+                legend.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
+                legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER);
+                legend.setOrientation(Legend.LegendOrientation.HORIZONTAL);
+                legend.setTextSize(20f);
             }
 
         }

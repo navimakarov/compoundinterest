@@ -80,7 +80,7 @@ public class CalculationFragment extends Fragment {
 
                     balance.setText(balanceText);
                     String data = String.valueOf(startingBalance) + "," + String.valueOf(monthlyContribution)
-                            + "," + String.valueOf(interestRate) + "," + String.valueOf(duration);
+                            + "," + String.valueOf(interestRate) + "," + String.valueOf(duration) + "," + String.valueOf(result);
                     DataHolderClass.getInstance().setDistributor_id(data);
                 }
                 catch (Exception e){
