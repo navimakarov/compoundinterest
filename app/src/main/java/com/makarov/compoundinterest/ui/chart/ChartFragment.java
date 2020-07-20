@@ -115,6 +115,9 @@ public class ChartFragment extends Fragment  {
                 lineDataSet.setFillColor(Color.RED);
 
                 lineChart.getLegend().setEnabled(false);
+                lineChart.getAxisLeft().setDrawGridLines(false);
+                lineChart.getXAxis().setDrawGridLines(false);
+                lineChart.getAxisRight().setDrawGridLines(false);
 
                 BigDecimal final_balance = new BigDecimal(data[4]);
                 BigDecimal final_profit;
@@ -179,6 +182,11 @@ public class ChartFragment extends Fragment  {
             barChart.getAxisLeft().setDrawLabels(false);
             barChart.getAxisRight().setDrawLabels(false);
             barChart.getXAxis().setDrawLabels(false);
+            barChart.getAxisLeft().setDrawGridLines(false);
+            barChart.getXAxis().setDrawGridLines(false);
+            barChart.getAxisRight().setDrawGridLines(false);
+            
+
 
             barChart.getLegend().setEnabled(false);
         }
