@@ -106,15 +106,26 @@
                 android:digits="0123456789"/>
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/balance"
+        <HorizontalScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="16dp"
-            android:text="0.00 $"
-            android:textColor="#4CAF50"
-            android:textSize="25sp" />
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/balance"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="16dp"
+                    android:text="0.00 $"
+                    android:textColor="#4CAF50"
+                    android:textSize="25sp" />
+            </LinearLayout>
+        </HorizontalScrollView>
 
         <Button
             android:id="@+id/calculate"
