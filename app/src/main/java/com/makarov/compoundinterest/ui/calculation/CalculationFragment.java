@@ -55,7 +55,12 @@ public class CalculationFragment extends Fragment {
                 startingBalanceEdit.setText(data[0]);
                 monthlyContributionEdit.setText(data[1]);
                 double interest = Double.parseDouble(data[2]) * 100;
-                interestRateEdit.setText(String.valueOf(interest));
+                if(interest == (int)interest){
+                    interestRateEdit.setText(String.valueOf((int)interest));
+                }
+                else{
+                    interestRateEdit.setText(String.valueOf(interest));
+                }
                 durationEdit.setText(data[3]);
                 balance.setText(NumberFormat.getInstance(Locale.US).format(new BigDecimal(data[4])) + " $");
             }
