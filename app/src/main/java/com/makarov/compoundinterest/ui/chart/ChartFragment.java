@@ -128,7 +128,7 @@ public class ChartFragment extends Fragment  {
 
 
                 profit.add(new PieEntry(profit_percents, "Profit"));
-                profit.add(new PieEntry(100 - profit_percents, "Investments"));
+                profit.add(new PieEntry(100 - profit_percents, "Investment"));
                 PieDataSet pieDataSet = new PieDataSet(profit, "");
                 pieDataSet.setColors(ColorTemplate.MATERIAL_COLORS);
                 pieDataSet.setValueTextSize(25f);
